@@ -23,7 +23,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-#Declare Items
+# Declare Items
 items = {
     'key': Items("Key", """An old, rustic looking key probably unlocks something ancient."""),
     'candle': Items("Candle", """A standard wax candle used to light the room""")
@@ -41,7 +41,7 @@ room['narrow'].connection["w"] = room['foyer']
 room['narrow'].connection["n"] = room['treasure']
 room['treasure'].connection["s"] = room['narrow']
 
-#Link items to rooms
+# Link items to rooms
 room['overlook'].addItem(items['key'])
 room['narrow'].addItem(items['candle'])
 
@@ -67,43 +67,43 @@ for line in textwrap.wrap(player.current_room.description, 20):
 user_is_playing = True
 
 while user_is_playing:
-    
-    user_input = input("Which direction would you like to go? (n/e/s/w)----").lower()
+
+    user_input = input(
+        "Which direction would you like to go? (n/e/s/w)----").lower()
 
     if user_input in ["n", "e", "s", "w"]:
-        player.move(user_input)    
-        print('You are currently---',player.current_room.name)
+        player.move(user_input)
+        print('You are currently---', player.current_room.name)
         for line in textwrap.wrap(player.current_room.description, 40):
             print(line)
-    elif user_input=="q":
+    elif user_input == "q":
         print("You exited the game. Thanks for playing!")
         user_is_playing = False
-#TODO:  
+# TODO:
     if len(player.current_room.loot) > 0:
         print("'Items in the room' =", player.current_room.loot[0].name)
-        user_input= input("would you like to pick up the item? get (item name)/no----").lower()
-       
-    if len(user_input.split()) == 2 :
-        
+        user_input = input(
+            "would you like to pick up the item? get (item name)/no----").lower()
+
+    if len(user_input.split()) == 2:
+
         get_handle = user_input.split()
 
-        if get_handle[0]=="get" :
+        if get_handle[0] == "get":
             target_item = get_handle[1]
-            for i in player.current_room.loot :
+            for i in player.current_room.loot:
                 player.pickUpItem(i)
                 player.current_room.removeItem(i)
-                if len(player.inventory) >1:
-                    for i in player.current_room.loot:
-                        print(i, "added to inventory\n Player inventory",player.inventory[i])
-                else:
-                    print(i, "added to inventory\n Player inventory",player.inventory[0])
+                print("You picked up:", i.name)
+            for i in player.inventory:
+                print("Player Inventory:", i.name)
 
-        else: 
-            get_handle[0]=="drop" 
+        else:
+            get_handle[0] == "drop"
             target_item = get_handle[1]
-            for i in player.inventory :
-                if i == target_item :
+            for i in player.inventory:
+                if i == target_item:
                     player.dropItem(i)
                     player.current_room.addItem(i)
-                    print(i, "removed from inventory and added to the room\n Player inventory",player.inventory)
-  
+                    print(
+                        i, "removed from inventory and added to the room\n Player inventory", player.inventory)

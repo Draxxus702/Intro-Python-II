@@ -20,6 +20,3 @@ class Player:
 
     def dropItem(self, item):
         self.inventory.remove(item)
-
-
-   
