@@ -95,15 +95,20 @@ while user_is_playing:
                 player.pickUpItem(i)
                 player.current_room.removeItem(i)
                 print("You picked up:", i.name)
-            for i in player.inventory:
-                print("Player Inventory:", i.name)
+            print("Player Inventory:", i.name)
 
         else:
             get_handle[0] == "drop"
             target_item = get_handle[1]
+            print(get_handle[1])
+            i = target_item
             for i in player.inventory:
-                if i == target_item:
-                    player.dropItem(i)
-                    player.current_room.addItem(i)
-                    print(
-                        i, "removed from inventory and added to the room\n Player inventory", player.inventory)
+                player.dropItem(i)
+                player.current_room.addItem(i)
+                print(
+                    i, "removed from inventory and added to the room\n Player inventory", player.inventory)
+
+    if user_input == 'player inventory':
+        print("Player Inventory:")
+        for i in player.inventory:
+            print(i.name)
